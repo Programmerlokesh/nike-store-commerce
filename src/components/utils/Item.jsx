@@ -1,6 +1,8 @@
 import React from "react";
 import { AiTwotoneStar } from "react-icons/ai";
 import { HiShoppingBag } from "react-icons/hi";
+import { useDispatch } from "react-redux";
+import { setAddItemToCart, setOpenCart } from "../../app/CartSlice";
 
 const Item = ({
   ifExists,
@@ -14,6 +16,22 @@ const Item = ({
   rating,
   price,
 }) => {
+  const dispatch = useDispatch();
+
+  const onAddToCart = () => {
+    const item = { id, title, text, img, color, shadow, price };
+
+    dispatch(setAddItemToCart(item));
+  };
+
+  const onCartToggle = () => {
+    dispatch(
+      setOpenCart({
+        cartState: true,
+      })
+    );
+  };
+
   return (
     <>
       <div
@@ -49,12 +67,17 @@ const Item = ({
             <button
               type="button"
               className="bg-white/90 blur-effect-theme button-theme p-0.5 shadow shadow-slate-200"
+              onClick={() => onAddToCart()}
             >
               <HiShoppingBag className="icon-style text-slate-900 " />
             </button>
             <button
               type="button"
               className="bg-white/90 blur-effect-theme button-theme px-2 py-1 shadow shadow-slate-200 text-sm text-black"
+              onClick={() => {
+                onAddToCart();
+                onCartToggle();
+              }}
             >
               {btn}
             </button>

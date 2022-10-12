@@ -1,10 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { AiOutlineHeart, AiOutlineShoppingCart } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
+import { selectTotalQTY, setOpenCart } from "../app/CartSlice";
 import logo from "../assets/logo.png";
 
 const Navbar = () => {
   const [navState, setNavState] = useState(false);
+  const dispatch = useDispatch();
+  const totalQTY = useSelector(selectTotalQTY);
+
+  const onCartToggle = () => {
+    dispatch(
+      setOpenCart({
+        cartState: true,
+      })
+    );
+  };
 
   const onNavScroll = () => {
     if (window.scrollY > 30) {
@@ -57,6 +69,7 @@ const Navbar = () => {
               <button
                 type="button"
                 className="border-none outline-none active:scale-110 transition-all duration-300 relative"
+                onClick={onCartToggle}
               >
                 <AiOutlineShoppingCart
                   className={`icon-style ${
@@ -70,7 +83,7 @@ const Navbar = () => {
                       : "bg-slate-100 text-slate-900 shadow-slate-100"
                   }`}
                 >
-                  0
+                  {totalQTY}
                 </div>
               </button>
             </li>
