@@ -21,6 +21,7 @@ import {
 const App = () => {
   return (
     <>
+    Lokesh
       <Navbar />
       <Cart />
       <main className="flex flex-col gap-16 relative">
